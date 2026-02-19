@@ -18,13 +18,31 @@
 
 ---
 
+## Live pricing – Google Flights & Rome2Rio (Feb 2026)
+
+*Checked one-way economy, 1 adult, CAD. No booking made; confirm on site for your dates.*
+
+| Leg | Date | Cheapest seen | Other options | Source |
+|-----|------|----------------|---------------|--------|
+| **YYZ → OPO** | Jul 23, 2026 | **CA$529** | TAP 1 stop (11:45 PM; 5:35 PM) | Google Flights |
+| **LIS → FNC** | Aug 5, 2026 | **CA$106** | easyJet CA$120–122, nonstop ~1h50 | Google Flights |
+| **OPO → FNC** | Aug 5, 2026 | **CA$111** | Ryanair CA$115, TAP/Azores CA$138, nonstop ~2h05 | Google Flights |
+| **FNC → YYZ** | Aug 9 or 10, 2026 | **CA$638** | Azores CA$738, TAP CA$784, United/AC CA$1,026 | Google Flights |
+| **Train Coimbra → Lisbon** | Aug 5 | **CA$16–45** | 1h 39min; bus cheaper CA$3–24, 2h 20min | Rome2Rio |
+
+**Total (low end, Option A):** CA$529 + CA$25 (train mid) + CA$106 + CA$638 ≈ **CA$1,298** per person.  
+**With Porto → Madeira (Option B/C):** CA$529 + train to Porto + CA$111 + CA$638 ≈ similar; train Coimbra→Porto similar range to Lisbon.
+
+---
+
 ## Flight Research Summary (Feb 2026)
 
 ### 1. Toronto → Porto (July 23) – DIRECT AVAILABLE ✓
 
 - **Direct flights exist** (Air Canada, TAP Air Portugal, Air Transat, etc.).
+- **Live check (Google Flights):** One-way **CA$529** (TAP, 1 stop) for Jul 23, 2026.
 - **Price ranges seen (CAD):**
-  - One-way: **CA$328–400** (promo) to **CA$600+**
+  - One-way: **CA$328–400** (promo) to **CA$600+**; **CA$529** current low (TAP 1 stop).
   - Round-trip: **CA$601–680** (promo) to **CA$818+** (Air Canada), **~CA$866** July average (Air Transat)
 - **Booking tip:** July is peak; book **as early as possible**. For summer Europe, 3–6 months ahead (or up to 9–12 months for best selection) is often recommended. You’re already inside that window.
 - **Where to check:** Google Flights (YYZ→OPO), Expedia.ca, KAYAK.ca, Skyscanner.ca, Air Canada, TAP, Air Transat.
@@ -35,7 +53,7 @@
 
 - **Train from Coimbra to Lisbon** (mom lives near Coimbra; train from Coimbra can go to Porto or Lisbon; for this plan, take it to **Lisbon**).
 - **A few hours in Lisbon** (e.g. morning train, midday/afternoon in the city), then **fly Lisbon → Funchal** in the afternoon or evening. Multiple LIS→FNC flights daily (TAP, easyJet, Ryanair); ~1h35.
-- **LIS→FNC one-way:** often **~$18–55**. Book for **Aug 5** (afternoon/evening departure so you have Lisbon time).
+- **LIS→FNC one-way:** **CA$106** (Ryanair nonstop) to CA$122 (easyJet) seen for Aug 5, 2026; often **~$18–55** in general. Book for **Aug 5** (afternoon/evening departure so you have Lisbon time).
 - **Where to check:** Google Flights (LIS→FNC), KAYAK, Skyscanner, Expedia. Confirm an afternoon/evening flight exists for Aug 5 when you book.
 
 ---
@@ -55,7 +73,7 @@
   - One-way: **~CA$237–455** (TAP nonstop often **~$430–455**; Air Canada, Air Transat similar).
   - Round-trip LIS–YYZ: **~CA$431+**.
 - **Funchal → Toronto** (one-way, with connection):
-  - **~CA$289–316 USD** (Expedia) and **~CA$852** (Google Flights) for full FNC–YYZ – **high variance; compare multi-city vs separate tickets.**
+  - **CA$638** (Google Flights, Aug 9 or 10, 2026); Azores CA$738, TAP CA$784, United/AC CA$1,026. **Compare multi-city vs separate tickets.**
 
 **Recommendation:** Compare:
 1. **Multi-city:** YYZ→OPO (Jul 23), FNC→YYZ (Aug 9 or 10) on one booking (e.g. Google Flights “multi-city”, or TAP/AC).
