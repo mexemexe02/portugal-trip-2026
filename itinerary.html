@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portugal Trip 2026 – Itinerary</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="index.html">Home</a>
+      <a href="itinerary.html" class="active">Itinerary</a>
+      <a href="flights-research.html">Flights & pricing</a>
+      <a href="full-plan.html">Full plan (options)</a>
+      <a href="portugal-trip-options.html">Compare options</a>
+    </div>
+  </nav>
+
+  <main class="site-wrap">
+    <h1>Portugal Trip 2026 – Itinerary</h1>
+    <p class="page-subtitle">Depart Toronto July 23 · Arrive Toronto Aug 9 or 10 (choose whichever is cheaper) · Total ~17–18 days.</p>
+
+    <section class="card">
+      <h2>Flow</h2>
+      <ol style="margin:0; padding-left:1.25rem;">
+        <li><strong>Toronto → Porto</strong> (fly).</li>
+        <li><strong>Stay at mom’s (near Coimbra)</strong> until <strong>Aug 5</strong>. (Train from Coimbra can go to Porto or Lisbon.)</li>
+        <li><strong>Aug 5:</strong> <strong>Train Coimbra → Lisbon</strong> → a few hours in Lisbon (Lisete gets Lisbon time) → <strong>fly Lisbon → Madeira</strong> (LIS→FNC, afternoon/evening).</li>
+        <li><strong>Stay in Madeira</strong>, then <strong>fly home</strong> so you <strong>arrive in Toronto Aug 9 or 10</strong> (pick by price).</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Dates at a glance</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Wed Jul 23</strong></td><td>Fly YYZ → Porto (OPO)</td><td>Direct flight</td></tr>
+            <tr><td>Thu Jul 24 – <strong>Tue Aug 5</strong></td><td><strong>Mom’s (near Coimbra)</strong></td><td>Stay at mom’s until Aug 5</td></tr>
+            <tr><td><strong>Wed Aug 5</strong></td><td>Train Coimbra → Lisbon</td><td>Then a few hours in Lisbon</td></tr>
+            <tr><td><strong>Wed Aug 5</strong></td><td>Fly Lisbon → Funchal (Madeira)</td><td>LIS→FNC afternoon/evening (~1h35)</td></tr>
+            <tr><td>Aug 5 – return</td><td><strong>Madeira</strong></td><td>Accommodation TBD</td></tr>
+            <tr><td><strong>Sat Aug 9 or Sun Aug 10</strong></td><td>Arrive Toronto</td><td>Fly FNC→LIS→YYZ; choose date by price</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Flight & train checklist</h2>
+      <ul class="checklist" id="checklist">
+        <li data-id="1">Book <strong>Toronto → Porto</strong> (Jul 23) – direct</li>
+        <li data-id="2">Book <strong>train Coimbra → Lisbon</strong> for Aug 5 (so you have a few hours in Lisbon)</li>
+        <li data-id="3">Book <strong>Lisbon → Funchal</strong> for Aug 5 afternoon/evening (LIS→FNC)</li>
+        <li data-id="4">Book <strong>Funchal → Toronto</strong> so you arrive Toronto Aug 9 or 10 – compare both dates, choose cheaper; via Lisbon, one ticket</li>
+        <li data-id="5">Compare multi-city vs separate tickets; choose cheaper</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Accommodation</h2>
+      <ul style="margin:0; padding-left:1.25rem;">
+        <li><strong>Mom’s near Coimbra (Jul 23 – Aug 5):</strong> At mom’s ✓</li>
+        <li><strong>Madeira (Aug 5 – fly home):</strong> TBD</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Next steps (after flights)</h2>
+      <ol style="margin:0; padding-left:1.25rem;">
+        <li>Book <strong>Madeira accommodation</strong> for your stay (Aug 5 – Aug 9/10).</li>
+        <li>Optional: day-by-day plan for Madeira.</li>
+      </ol>
+    </section>
+
+    <footer class="site-footer">
+      For other itinerary options (Porto to Madeira, 1 day Lisbon on return), see <a href="full-plan.html">Full plan</a> and <a href="portugal-trip-options.html">Compare options</a>.
+    </footer>
+  </main>
+
+  <script>
+    (function() {
+      var KEY = 'portugal2026_itinerary_done';
+      var list = document.getElementById('checklist');
+      if (!list) return;
+      var items = list.querySelectorAll('li[data-id]');
+      var stored = {};
+      try { stored = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+      items.forEach(function(li) {
+        var id = li.getAttribute('data-id');
+        if (stored[id]) li.classList.add('done');
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', function() {
+          li.classList.toggle('done');
+          stored[id] = li.classList.contains('done');
+          try { localStorage.setItem(KEY, JSON.stringify(stored)); } catch (e) {}
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

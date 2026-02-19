@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portugal Trip 2026 – Compare Options</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --card: #fff;
+      --ink: #1a1a1a;
+      --muted: #5c5c5c;
+      --accent: #c45c3e;
+      --accent-soft: #e8d5d0;
+      --green: #2d5a4a;
+      --green-soft: #d4e6e0;
+      --border: #e5e0db;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      margin: 0;
+      padding: 1.5rem 1rem 3rem;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+      color: var(--ink);
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .fixed-dates {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    /* Option cards */
+    .options-grid {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .option-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .option-card.selected { border-color: var(--accent); box-shadow: 0 4px 24px rgba(196,92,62,.15); }
+    .option-card header {
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--card);
+      user-select: none;
+    }
+    .option-card header:hover { background: #fafafa; }
+    .option-card h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ink);
+    }
+    .option-card .tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .option-card .tag.b { background: var(--green-soft); color: var(--green); }
+    .option-card .tag.c { background: #e8e4f0; color: #4a3d6b; }
+    .option-card .tag.d { background: #e0eef5; color: #2c5a7a; }
+    .option-card .tag.e { background: #f5e8d4; color: #8b6919; }
+    .option-card .tag.f { background: #e0f0e8; color: #1e6b4a; }
+    .option-card .tag.g { background: #f0e8f5; color: #5a3d7a; }
+    .option-card .body {
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .option-card.collapsed .body { display: none; }
+    .timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+    }
+    .timeline li {
+      padding: 0.5rem 0 0.5rem 1.25rem;
+      position: relative;
+      border-left: 2px solid var(--border);
+      margin-left: 0.35rem;
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 0.75rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .timeline li strong { color: var(--ink); }
+    .option-card .body .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 600px) { .option-card .body .pros-cons { grid-template-columns: 1fr; } }
+    .pros-cons h4 { font-size: 0.85rem; margin: 0 0 0.35rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .pros-cons ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+    .pros-cons .pros ul { color: var(--green); }
+    .pros-cons .cons ul { color: var(--muted); }
+    /* Comparison table */
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--ink);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table th {
+      background: var(--ink);
+      color: #fff;
+      font-weight: 500;
+    }
+    .compare-table tr:last-child td { border-bottom: 0; }
+    .compare-table td:first-child { font-weight: 500; color: var(--muted); width: 28%; }
+    .compare-table .opt-a { background: rgba(196,92,62,.08); }
+    .compare-table .opt-b { background: rgba(45,90,74,.08); }
+    .compare-table .opt-c { background: rgba(74,61,107,.08); }
+    .compare-table .opt-d { background: rgba(44,90,122,.08); }
+    .compare-table .opt-e { background: rgba(139,105,25,.08); }
+    .compare-table .opt-f { background: rgba(30,107,74,.08); }
+    .compare-table .opt-g { background: rgba(90,61,122,.08); }
+    .compare-table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+    /* Bookings checklist */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .checklist li {
+      padding: 0.5rem 0 0.5rem 1.75rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      font-size: 1.1rem;
+    }
+    .checklist li.done::before { content: '☑'; color: var(--green); }
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .btn.secondary { background: var(--border); color: var(--ink); }
+    .choice-bar {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--green-soft);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+    }
+    .choice-bar strong { color: var(--green); }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="index.html">Home</a>
+      <a href="itinerary.html">Itinerary</a>
+      <a href="flights-research.html">Flights & pricing</a>
+      <a href="full-plan.html">Full plan (options)</a>
+      <a href="portugal-trip-options.html" class="active">Compare options</a>
+    </div>
+  </nav>
+  <h1>Portugal Trip 2026</h1>
+  <p class="subtitle">Compare all five itinerary options: when to go to Lisbon, whether to fly to Madeira from Porto or Lisbon, and whether to add a day in Lisbon on the return.</p>
+  <div class="fixed-dates">Depart Toronto <strong>July 23</strong> · Arrive Toronto <strong>Aug 9 or 10</strong> (choose by price) · Mom’s near <strong>Coimbra</strong></div>
+
+  <div class="options-grid">
+    <!-- Option A -->
+    <article class="option-card" data-option="a" id="card-a">
+      <header>
+        <div>
+          <h2>Option A – Lisbon before Madeira</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Train Coimbra→Lisbon, few hours in Lisbon, then fly LIS→FNC. Return: FNC→LIS→YYZ same day.</p>
+        </div>
+        <span class="tag">A</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Tue Aug 5</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Wed Aug 5</strong> – Train Coimbra → Lisbon; few hours in Lisbon</li>
+          <li><strong>Wed Aug 5</strong> – Fly Lisbon → Funchal (LIS→FNC) afternoon/evening</li>
+          <li><strong>Aug 5 – return</strong> – Madeira</li>
+          <li><strong>Aug 9 or 10</strong> – Fly FNC→LIS→YYZ (one ticket); arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Pros</h4>
+            <ul>
+              <li>Lisbon time before Madeira (same day as flight)</li>
+              <li>Return is one travel day (no extra night)</li>
+              <li>LIS→FNC has many daily flights</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Cons</h4>
+            <ul>
+              <li>Aug 5 is busy: train + city + flight</li>
+              <li>Only a few hours in Lisbon</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Lisbon (Aug 5) · LIS→FNC (Aug 5 pm) · FNC→LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('a')">I choose Option A</button>
+      </div>
+    </article>
+
+    <!-- Option B -->
+    <article class="option-card" data-option="b" id="card-b">
+      <header>
+        <div>
+          <h2>Option B – Porto to Madeira, 1 day Lisbon on return</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Train Coimbra→Porto, fly OPO→FNC (or via Lisbon). Return: FNC→LIS, stay 1 night Lisbon, then LIS→YYZ.</p>
+        </div>
+        <span class="tag b">B</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Aug 4 or 5</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Aug 4 or 5</strong> – Train Coimbra → Porto; fly Porto → Madeira (OPO→FNC or OPO→LIS→FNC)</li>
+          <li><strong>Madeira</strong> – Stay until day before Lisbon</li>
+          <li><strong>e.g. Aug 8 or 9</strong> – Fly FNC → Lisbon; <strong>stay 1 night in Lisbon</strong></li>
+          <li><strong>Aug 9 or 10</strong> – Fly Lisbon → Toronto (LIS→YYZ); arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Pros</h4>
+            <ul>
+              <li>Full day + night in Lisbon on the return</li>
+              <li>Aug 5 less packed (no train + Lisbon + flight same day)</li>
+              <li>Use Porto for both arrival and Madeira departure</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Cons</h4>
+            <ul>
+              <li>Check Porto→Madeira flights (OPO→FNC or OPO→LIS→FNC)</li>
+              <li>Extra night in Lisbon (cost + planning)</li>
+              <li>Return split: FNC→LIS then next day LIS→YYZ</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Porto · OPO→FNC (or OPO→LIS→FNC) · FNC→LIS · 1 night Lisbon · LIS→YYZ</p>
+        <button class="btn" onclick="selectOption('b')">I choose Option B</button>
+      </div>
+    </article>
+
+    <!-- Option C -->
+    <article class="option-card" data-option="c" id="card-c">
+      <header>
+        <div>
+          <h2>Option C – Porto to Madeira, return same day (no Lisbon stay)</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Train Coimbra→Porto, fly OPO→FNC. Return FNC→LIS→YYZ same day; Lisbon is connection only.</p>
+        </div>
+        <span class="tag c">C</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Aug 4 or 5</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Aug 4 or 5</strong> – Train Coimbra → Porto; fly Porto → Madeira (OPO→FNC or via LIS)</li>
+          <li><strong>Madeira</strong> – Until return</li>
+          <li><strong>Aug 9 or 10</strong> – Fly FNC→LIS→YYZ (one ticket); arrive Toronto. No Lisbon city time.</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Pros</h4>
+            <ul>
+              <li>No packed “train + Lisbon + flight” day</li>
+              <li>No extra night in Lisbon</li>
+              <li>Return is one ticket FNC→LIS→YYZ</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Cons</h4>
+            <ul>
+              <li>No Lisbon city time (airport connection only)</li>
+              <li>Check Porto→Madeira flight availability</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Porto · OPO→FNC (or via LIS) · FNC→LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('c')">I choose Option C</button>
+      </div>
+    </article>
+
+    <!-- Option D -->
+    <article class="option-card" data-option="d" id="card-d">
+      <header>
+        <div>
+          <h2>Option D – Full day Lisbon before Madeira, return same day</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Train Aug 4, 1 night Lisbon, fly LIS→FNC Aug 5. Return FNC→LIS→YYZ same day.</p>
+        </div>
+        <span class="tag d">D</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Tue Aug 4</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Wed Aug 4</strong> – Train Coimbra → Lisbon; <strong>full day + 1 night in Lisbon</strong></li>
+          <li><strong>Thu Aug 5</strong> – Fly Lisbon → Funchal (LIS→FNC)</li>
+          <li><strong>Aug 5 – return</strong> – Madeira</li>
+          <li><strong>Aug 9 or 10</strong> – Fly FNC→LIS→YYZ (one ticket); arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Pros</h4>
+            <ul>
+              <li>Full day + night in Lisbon before Madeira</li>
+              <li>Aug 5 is only “fly to Madeira” (not train + city + flight)</li>
+              <li>Return is one ticket; no extra night on return</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Cons</h4>
+            <ul>
+              <li>One extra night in Lisbon (cost)</li>
+              <li>Leave mom’s one day earlier (Aug 4)</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Lisbon (Aug 4) · 1 night Lisbon · LIS→FNC (Aug 5) · FNC→LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('d')">I choose Option D</button>
+      </div>
+    </article>
+
+    <!-- Option E -->
+    <article class="option-card" data-option="e" id="card-e">
+      <header>
+        <div>
+          <h2>Option E – Lisbon before Madeira (few hours) + 1 day Lisbon on return</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Few hours Lisbon Aug 5, then LIS→FNC. Return: FNC→LIS, stay 1 night Lisbon, then LIS→YYZ. Maximum Lisbon.</p>
+        </div>
+        <span class="tag e">E</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Tue Aug 5</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Wed Aug 5</strong> – Train Coimbra → Lisbon; few hours in Lisbon; fly LIS→FNC afternoon/evening</li>
+          <li><strong>Aug 5 – e.g. Aug 8/9</strong> – Madeira</li>
+          <li><strong>e.g. Aug 8 or 9</strong> – Fly FNC → Lisbon; <strong>stay 1 night in Lisbon</strong></li>
+          <li><strong>Aug 9 or 10</strong> – Fly Lisbon → Toronto (LIS→YYZ); arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Pros</h4>
+            <ul>
+              <li>Lisbon twice: few hours before Madeira + full day on return</li>
+              <li>Best if you want to “see Lisbon” properly on the return</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Cons</h4>
+            <ul>
+              <li>Aug 5 still busy (train + few hours Lisbon + flight)</li>
+              <li>Extra night in Lisbon; two return segments</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Lisbon (Aug 5) · LIS→FNC (Aug 5 pm) · FNC→LIS · 1 night Lisbon · LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('e')">I choose Option E</button>
+      </div>
+    </article>
+
+    <!-- Option F -->
+    <article class="option-card" data-option="f" id="card-f">
+      <header>
+        <div>
+          <h2>Option F – More days in Madeira (leave mom's Aug 3)</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">Train Coimbra→Lisbon Aug 3, few hours Lisbon, LIS→FNC Aug 3. Return FNC→LIS→YYZ same day. ~6–7 days in Madeira.</p>
+        </div>
+        <span class="tag f">F</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li><strong>Wed Jul 23</strong> – Fly YYZ → Porto (OPO)</li>
+          <li><strong>Jul 24 – Sat Aug 3</strong> – Mom’s (near Coimbra)</li>
+          <li><strong>Sun Aug 3</strong> – Train Coimbra → Lisbon; few hours Lisbon; fly LIS→FNC</li>
+          <li><strong>Aug 3 – Aug 9/10</strong> – Madeira (~6–7 days)</li>
+          <li><strong>Aug 9 or 10</strong> – Fly FNC→LIS→YYZ (one ticket); arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><h4>Pros</h4><ul><li>More time in Madeira</li><li>Return one ticket; no extra night</li></ul></div>
+          <div class="cons"><h4>Cons</h4><ul><li>Two fewer days at mom’s</li></ul></div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> YYZ→OPO · Train Coimbra→Lisbon (Aug 3) · LIS→FNC (Aug 3 pm) · FNC→LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('f')">I choose Option F</button>
+      </div>
+    </article>
+
+    <!-- Option G -->
+    <article class="option-card" data-option="g" id="card-g">
+      <header>
+        <div>
+          <h2>Option G – Two nights in Lisbon on the return</h2>
+          <p style="margin:0.25rem 0 0; font-size:0.9rem; color:var(--muted);">To Madeira as A or B. Return: FNC→LIS, stay 2 nights Lisbon (two full days), then LIS→YYZ.</p>
+        </div>
+        <span class="tag g">G</span>
+      </header>
+      <div class="body">
+        <strong>Timeline</strong>
+        <ul class="timeline">
+          <li>Outbound and Madeira as Option A or B</li>
+          <li><strong>e.g. Aug 7 or 8</strong> – Fly FNC → Lisbon; <strong>stay 2 nights in Lisbon</strong></li>
+          <li><strong>Aug 9 or 10</strong> – Fly Lisbon → Toronto; arrive Toronto</li>
+        </ul>
+        <div class="pros-cons">
+          <div class="pros"><h4>Pros</h4><ul><li>Two full days in Lisbon on the return</li></ul></div>
+          <div class="cons"><h4>Cons</h4><ul><li>Two extra nights (cost); leave Madeira earlier</li></ul></div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.9rem;"><strong>Book:</strong> As A or B; FNC→LIS · 2 nights Lisbon · LIS→YYZ (arrive Aug 9/10)</p>
+        <button class="btn" onclick="selectOption('g')">I choose Option G</button>
+      </div>
+    </article>
+  </div>
+
+  <p class="section-title">Side-by-side comparison</p>
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>D</th>
+          <th>E</th>
+          <th>F</th>
+          <th>G</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>To Madeira</td>
+          <td class="opt-a">Lisbon few hrs</td>
+          <td class="opt-b">Porto</td>
+          <td class="opt-c">Porto</td>
+          <td class="opt-d">Lisbon full day</td>
+          <td class="opt-e">Lisbon few hrs</td>
+          <td class="opt-f">Lisbon Aug 3</td>
+          <td class="opt-g">As A or B</td>
+        </tr>
+        <tr>
+          <td>Lisbon</td>
+          <td class="opt-a">Few hrs Aug 5</td>
+          <td class="opt-b">1 day return</td>
+          <td class="opt-c">None</td>
+          <td class="opt-d">1 day before</td>
+          <td class="opt-e">Few hrs + 1 day return</td>
+          <td class="opt-f">Few hrs Aug 3</td>
+          <td class="opt-g">2 days return</td>
+        </tr>
+        <tr>
+          <td>Return home</td>
+          <td class="opt-a">Same day</td>
+          <td class="opt-b">1 night LIS</td>
+          <td class="opt-c">Same day</td>
+          <td class="opt-d">Same day</td>
+          <td class="opt-e">1 night LIS</td>
+          <td class="opt-f">Same day</td>
+          <td class="opt-g">2 nights LIS</td>
+        </tr>
+        <tr>
+          <td>Extra night(s)</td>
+          <td class="opt-a">0</td>
+          <td class="opt-b">1</td>
+          <td class="opt-c">0</td>
+          <td class="opt-d">1</td>
+          <td class="opt-e">1</td>
+          <td class="opt-f">0</td>
+          <td class="opt-g">2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="section-title">Bookings checklist (after you choose)</p>
+  <ul class="checklist">
+    <li>Toronto → Porto (Jul 23) – all options</li>
+    <li><strong>A:</strong> Train Coimbra→Lisbon (Aug 5); LIS→FNC (Aug 5 pm); FNC→Toronto (arrive Aug 9/10)</li>
+    <li><strong>B:</strong> Train Coimbra→Porto; OPO→FNC; FNC→LIS; 1 night Lisbon; LIS→Toronto</li>
+    <li><strong>C:</strong> Train Coimbra→Porto; OPO→FNC; FNC→LIS→YYZ (arrive Aug 9/10)</li>
+    <li><strong>D:</strong> Train Coimbra→Lisbon (Aug 4); 1 night Lisbon; LIS→FNC (Aug 5); FNC→Toronto</li>
+    <li><strong>E:</strong> Train Coimbra→Lisbon (Aug 5); LIS→FNC (Aug 5 pm); FNC→LIS; 1 night Lisbon; LIS→Toronto</li>
+    <li><strong>F:</strong> Train Coimbra→Lisbon (Aug 3); LIS→FNC (Aug 3 pm); FNC→Toronto</li>
+    <li><strong>G:</strong> As A or B; FNC→LIS; 2 nights Lisbon; LIS→Toronto</li>
+  </ul>
+
+  <div class="choice-bar" id="choice-bar" style="display:none;">
+    You’re considering: <strong id="choice-text"></strong> — See <a href="full-plan.html">Full plan</a> and <a href="flights-research.html">Flights & pricing</a> for details and booking links.
+  </div>
+
+  <script>
+    var optionLabels = {
+      a: 'Option A (Lisbon before Madeira, few hours)',
+      b: 'Option B (Porto to Madeira, 1 day Lisbon on return)',
+      c: 'Option C (Porto to Madeira, return same day, no Lisbon stay)',
+      d: 'Option D (Full day Lisbon before Madeira)',
+      e: 'Option E (Few hours Lisbon before + 1 day Lisbon on return)',
+      f: 'Option F (More days in Madeira, leave mom\'s Aug 3)',
+      g: 'Option G (Two nights in Lisbon on the return)'
+    };
+    function selectOption(opt) {
+      document.querySelectorAll('.option-card').forEach(function(card) {
+        card.classList.remove('selected');
+      });
+      var card = document.getElementById('card-' + opt);
+      if (card) card.classList.add('selected');
+      var bar = document.getElementById('choice-bar');
+      var text = document.getElementById('choice-text');
+      text.textContent = optionLabels[opt] || ('Option ' + opt.toUpperCase());
+      bar.style.display = 'block';
+    }
+    document.querySelectorAll('.option-card header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var card = header.closest('.option-card');
+        card.classList.toggle('collapsed');
+      });
+    });
+  </script>
+</body>
+</html>
